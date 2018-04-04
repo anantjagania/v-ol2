@@ -28,9 +28,11 @@ public class MarkerLayerConnector extends AbstractComponentContainerConnector {
     public void onConnectorHierarchyChange(ConnectorHierarchyChangeEvent event) {
         Profiler.enter("MarkerLayerConnector.onConnectorHierarchyChange");
         Profiler.enter("MarkerLayerConnector.onConnectorHierarchyChange add children");
-        int index = 0;
+
         for (ComponentConnector child : getChildComponents()) {
-            getWidget().addOrMove(child.getWidget(), index++);
+            if (!event.getOldChildren().contains(child)) {
+                getWidget().add(child.getWidget());
+            }
         }
         Profiler.leave("MarkerLayerConnector.onConnectorHierarchyChange add children");
 
